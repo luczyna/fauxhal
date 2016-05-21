@@ -1,0 +1,22 @@
+{
+  "name": "fauxhal",
+  "version": "0.0.1",
+  "description": "a faux api for development",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "development",
+    "fake",
+    "data"
+  ],
+  "author": "luczyna",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.19"
+  }
+}

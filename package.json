@@ -4,7 +4,8 @@
   "description": "a faux api for development",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db": "mkdir -p data && mongod --dbpath ./data"
   },
   "keywords": [
     "api",

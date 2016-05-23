@@ -5,11 +5,11 @@ var generateWithThese = {
   fauxhal: './generate/templates/fauxhal.js',
   server: './generate/templates/server.js'
 };
-
 var findWithThese = getRegExed();
+var doneCount = 0;
 
 var params = getArguments();
-if (!params) return;
+if (!params) process.exit();
 
 generateApi();
 
@@ -19,8 +19,6 @@ function generateApi() {
   generateApiFile();
   generateServerString();
   generateFauxhalUnderwear();
-
-  console.log('generated %s resource', params.lowercase);
 }
 
 function generateApiFile() {
@@ -36,6 +34,8 @@ function generateApiFile() {
 
     fs.writeFile(destination, thisIsFile, function(writeError) {
       if (writeError) throw writeError;
+
+      isAllDone();
     });
   });
 }
@@ -53,6 +53,8 @@ function generateServerString() {
 
     fs.appendFile(destination, addThis, function(appendError) {
       if (appendError) throw appenError;
+
+      isAllDone();
     });
   });
 }
@@ -75,9 +77,20 @@ function generateFauxhalUnderwear() {
 
       fs.writeFile(destination, results, function(writeError) {
         if (writeError) throw writeError;
+
+        isAllDone();
       });
     });
   });
+}
+
+function isAllDone() {
+  doneCount++;
+
+  if (doneCount === 3) {
+    console.log('generated %s resource', params.lowercase);
+    process.exit(0);
+  }
 }
 
 //////

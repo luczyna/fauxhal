@@ -31,7 +31,7 @@ npm run db
 This simply runs:
 
 ```
-mongod --dbpath ./data
+mkdir -p data && mongod --dbpath ./data
 ```
 
 ## Try an endpoint
@@ -47,3 +47,21 @@ $ node setup/notes 4
 $ node setup/notes --cleanup
  #will cleanup the notes collection in our mongo database
 ```
+
+## Generate an endpoint
+
+To quickly create an endpoint for development, you can use the generate script.
+
+``` shell
+$ node generate/restful song
+```
+
+This will create a starter file in `./api` for you containing the bare functionality to do all the good RESTful things to a song. It will also hook it up to the `./hal.js` file to create our middlewear underwear, and assign that middlewear to the appropriate requests in our `./server.js` file. All this to get you started right. It is assuming you've created a model for this, to be found in `./models/song.js`.
+
+Additionally, you can tell it the correct pluralised version of your endpoint, if it's not so easily transformed with a simple 's' at the end.
+
+``` shell
+$ node generate/restful entry entries
+```
+
+Find the `./api/entries.js` file and start customising. If you don't want a PUT request for your entries endpoint, for example, remove it from `./server.js`.

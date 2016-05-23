@@ -89,7 +89,7 @@ function getRegExed() {
 
 function provideManual() {
   var manual = [
-    'generate an setup script for a certain resource',
+    'generate a setup script for a certain resource',
     '  helps you to create some fake data in your database, or clean it up',
     '  you will need to customise it with fake data for your model',
     '  just look for the TODO',

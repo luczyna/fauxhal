@@ -4,7 +4,7 @@ var port = process.env.PORT || 9000;
 var app = express();
 var server = require('http').createServer(app);
 
-var fauxhal = require('./fauxhal.js');
+var fauxhal = require('./hal.js');
 
 server.listen(port);
 

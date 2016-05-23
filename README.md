@@ -66,12 +66,60 @@ $ node generate/restful entry entries
 
 Find the `./api/entries.js` file and start customising. If you don't want a PUT request for your entries endpoint, for example, remove it from `./server.js`.
 
+### Generate a model to base your endpoint off of
+
+You can quickly get started with your model by using our model generator, which creates an exportable constructor. It will contain, by default, the `_id` and `date` key. You feed to the generator the name of the model, and then any number of keys you'd like this model to have. 
+
+``` shell
+$ node generate/model song title artist length album
+```
+
+This creates a `./models/song.js` file for you, which would be referenced in the restful endpoint file you may generate, as well as the following setup file you can also generate.
+
 ### Generate the setup file for that endpoint
 
 Just like you can setup some fake data for yourself for the notes resource, there is a way to quickly generate a start setup file for your endpoints, too.
 
-```shell
+``` shell
 $ node generate/setup song
 ```
 
 This will create the `./setup/song.js` file for you to customise to your liking. You can use the `--cleanup` flag, like with the starter `notes.js` setup, to cleanup the mongo collection dedicated to your resource. Look for the **TODO** in the newly generated file, and you will find where to mock out the data to enter into the database.
+
+## Customise it to your needs
+
+This is only a start, and you can and should customise the behaviors of the endpoints of this tool to your needs. 
+
+You can customise the routes and their methods available to development in the `./server.js` file. Don't want to `GET` a single resource? Delete or comment that line out:
+
+``` js
+/* 
+ * notes information
+ */
+app
+  .get('/notes', fauxhal.notes.get)
+  .post('/note', fauxhal.notes.new)
+  //.get('/note/:nummer', fauxhal.notes.note) // we never wanted you, anyway
+  .put('/note/:nummer', fauxhal.notes.update)
+  .delete('/note/:nummer', fauxhal.notes.delete);
+```
+
+Do you want to edit the names of available endpoint behaviors, maybe switching out certain endpoints with alternative versions for the simple heck of it? Edit the `./hal.js` file -- this is referenced in the `./server.js` file to provide all the route behaviors.
+
+``` js
+var underwear = {
+  version: require('./api/version.js'),
+  // notes:   require('./api/notes.js')
+  notes:   require('./api/alternative-better-notes.js')
+};
+```
+
+Generated a RESTful endpoint but need it to do moar? Find it in the `./api` directory and edit it directly: maybe you want the GET request of a single resource to watch query paramters for pass back multiple notes. Do it. 
+
+``` js
+function getNote(request, response) {
+  var directRequest = Number(request.params.nummer);
+  var extraParameters = request.query;
+
+  if (extraParameters.start) { ... }
+```

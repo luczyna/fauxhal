@@ -1,0 +1,1 @@
+{{lowercasePlural}}: require('./api/{{lowercasePlural}}.js')

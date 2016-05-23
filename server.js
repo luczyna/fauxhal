@@ -4,7 +4,7 @@ var port = process.env.PORT || 9000;
 var app = express();
 var server = require('http').createServer(app);
 
-var fauxhal = require('./fauxhal.js');
+var fauxhal = require('./hal.js');
 
 server.listen(port);
 
@@ -23,3 +23,13 @@ app
  */
 app
   .get('/version', fauxhal.version);
+
+/* 
+ * notes information
+ */
+app
+  .get('/notes', fauxhal.notes.get)
+  .post('/note', fauxhal.notes.new)
+  .get('/note/:nummer', fauxhal.notes.note)
+  .put('/note/:nummer', fauxhal.notes.update)
+  .delete('/note/:nummer', fauxhal.notes.delete);

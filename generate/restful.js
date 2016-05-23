@@ -14,8 +14,8 @@ generateApi();
 //////
 
 function generateApi() {
-  generateApiFile();
-  generateServerString();
+  // generateApiFile();
+  // generateServerString();
   generateFauxhalUnderwear();
 }
 
@@ -23,7 +23,29 @@ function generateApiFile() {}
 
 function generateServerString() {}
 
-function generateFauxhalUnderwear() {}
+function generateFauxhalUnderwear() {
+  var destination = './hal.js';
+
+  fs.readFile(generateWithThese.fauxhal, {encoding: 'utf-8'}, function(error, data) {
+    if (error) throw error;
+
+    var replaceThis = new RegExp('{{lowercasePlural}}', 'g');
+    var addThis = data.replace(replaceThis, params.plural.lowercase);
+
+    fs.readFile(destination, {encoding: 'utf-8'}, function(destinationReadError, destinationData) {
+      if (destinationReadError) throw destinationReadError;
+  
+      var findHere = new RegExp('\'\\\)\n');
+      var replacement = '\'\),\n  ' + addThis + '\n';
+
+      var results = destinationData.replace(findHere, replacement);
+
+      fs.writeFile(destination, results, function(writeError) {
+        if (writeError) throw writeError;
+      });
+    });
+  });
+}
 
 //////
 

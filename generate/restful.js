@@ -1,5 +1,11 @@
 var fs = require('fs');
 
+var generateWithThese = {
+  api: './generate/templates/api.js',
+  fauxhal: './generate/templates/fauxhal.js',
+  server: './generate/templates/server.js'
+};
+
 var params = getArguments();
 if (!params) return;
 

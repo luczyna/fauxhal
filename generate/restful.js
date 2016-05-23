@@ -19,9 +19,26 @@ function generateApi() {
   generateApiFile();
   generateServerString();
   generateFauxhalUnderwear();
+
+  console.log('generated %s resource', params.lowercase);
 }
 
-function generateApiFile() {}
+function generateApiFile() {
+  var destination = './api/' + params.plural.lowercase + '.js';
+
+  fs.readFile(generateWithThese.api, {encoding: 'utf-8'}, function(error, data) {
+    if (error) throw error;
+
+    var thisIsFile = data.replace(findWithThese.lowercase, params.lowercase);
+    thisIsFile = thisIsFile.replace(findWithThese.uppercase, params.uppercase);
+    thisIsFile = thisIsFile.replace(findWithThese.plural.lowercase, params.plural.lowercase);
+    thisIsFile = thisIsFile.replace(findWithThese.plural.uppercase, params.plural.uppercase);
+
+    fs.writeFile(destination, thisIsFile, function(writeError) {
+      if (writeError) throw writeError;
+    });
+  });
+}
 
 function generateServerString() {
   var destination = './server.js';

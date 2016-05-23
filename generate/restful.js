@@ -15,13 +15,33 @@ generateApi();
 
 function generateApi() {
   // generateApiFile();
-  // generateServerString();
+  generateServerString();
   generateFauxhalUnderwear();
 }
 
 function generateApiFile() {}
 
-function generateServerString() {}
+function generateServerString() {
+  var destination = './server.js';
+
+  fs.readFile(generateWithThese.server, {encoding: 'utf-8'}, function(error, data) {
+    if (error) throw error;
+
+    var findThese = {
+      lc: new RegExp('{{lowercase}}', 'g'),
+      lcp: new RegExp('{{lowercasePlural}}', 'g')
+    };
+
+    var addThis = data.replace(findThese.lc, params.lowercase);
+    addThis = addThis.replace(findThese.lcp, params.plural.lowercase);
+
+    addThis = '\n' + addThis;
+
+    fs.appendFile(destination, addThis, function(appendError) {
+      if (appendError) throw appenError;
+    });
+  });
+}
 
 function generateFauxhalUnderwear() {
   var destination = './hal.js';

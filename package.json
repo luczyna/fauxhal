@@ -4,7 +4,8 @@
   "description": "a faux api for development",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "db": "mkdir -p data && mongod --dbpath ./data"
   },
   "keywords": [
     "api",
@@ -18,5 +19,8 @@
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "mongodb": "^2.1.19"
+  },
+  "devDependencies": {
+    "faker": "^3.1.0"
   }
 }

@@ -6,6 +6,8 @@ var generateWithThese = {
   server: './generate/templates/server.js'
 };
 
+var findWithThese = getRegExed();
+
 var params = getArguments();
 if (!params) return;
 
@@ -14,7 +16,7 @@ generateApi();
 //////
 
 function generateApi() {
-  // generateApiFile();
+  generateApiFile();
   generateServerString();
   generateFauxhalUnderwear();
 }
@@ -27,13 +29,8 @@ function generateServerString() {
   fs.readFile(generateWithThese.server, {encoding: 'utf-8'}, function(error, data) {
     if (error) throw error;
 
-    var findThese = {
-      lc: new RegExp('{{lowercase}}', 'g'),
-      lcp: new RegExp('{{lowercasePlural}}', 'g')
-    };
-
-    var addThis = data.replace(findThese.lc, params.lowercase);
-    addThis = addThis.replace(findThese.lcp, params.plural.lowercase);
+    var addThis = data.replace(findWithThese.lowercase, params.lowercase);
+    addThis = addThis.replace(findWithThese.plural.lowercase, params.plural.lowercase);
 
     addThis = '\n' + addThis;
 
@@ -49,8 +46,7 @@ function generateFauxhalUnderwear() {
   fs.readFile(generateWithThese.fauxhal, {encoding: 'utf-8'}, function(error, data) {
     if (error) throw error;
 
-    var replaceThis = new RegExp('{{lowercasePlural}}', 'g');
-    var addThis = data.replace(replaceThis, params.plural.lowercase);
+    var addThis = data.replace(findWithThese.plural.lowercase, params.plural.lowercase);
 
     fs.readFile(destination, {encoding: 'utf-8'}, function(destinationReadError, destinationData) {
       if (destinationReadError) throw destinationReadError;
@@ -109,6 +105,17 @@ function getArguments() {
   }
 
   return argumentsToUse;
+}
+
+function getRegExed() {
+  return {
+    lowercase: new RegExp('{{lowercase}}', 'g'),
+    uppercase: new RegExp('{{uppercase}}', 'g'),
+    plural: {
+      lowercase: new RegExp('{{lowercasePlural}}', 'g'),
+      uppercase: new RegExp('{{uppercasePlural}}', 'g'),  
+    }
+  };
 }
 
 function provideManual() {

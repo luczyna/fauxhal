@@ -1,7 +1,11 @@
 {
   "name": "fauxhal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a faux api for development",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/luczyna/fauxhal.git"
+  },
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

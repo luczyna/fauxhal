@@ -65,3 +65,13 @@ $ node generate/restful entry entries
 ```
 
 Find the `./api/entries.js` file and start customising. If you don't want a PUT request for your entries endpoint, for example, remove it from `./server.js`.
+
+### Generate the setup file for that endpoint
+
+Just like you can setup some fake data for yourself for the notes resource, there is a way to quickly generate a start setup file for your endpoints, too.
+
+```shell
+$ node generate/setup song
+```
+
+This will create the `./setup/song.js` file for you to customise to your liking. You can use the `--cleanup` flag, like with the starter `notes.js` setup, to cleanup the mongo collection dedicated to your resource. Look for the **TODO** in the newly generated file, and you will find where to mock out the data to enter into the database.

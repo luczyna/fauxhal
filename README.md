@@ -20,6 +20,8 @@ In terminal #1, start our server:
 node server.js
 ```
 
+You can now access some endpoints at [http://localhost:9000](http://localhost:9000).
+
 In terminal #2, start our mongo database:
 
 ```
@@ -30,4 +32,18 @@ This simply runs:
 
 ```
 mongod --dbpath ./data
+```
+
+## Try an endpoint
+
+There is a sample endpoint created for you, which allows us to get and manipulate notes. You can get all notes, add a note, get that single note, update that note, and delete that note. Try it out in your app or in Postman.
+
+To get yourself started with some base data, you can run a handy little script to populate some note data for you. You can optionally clean up after yourself after you may have played around too much, and need a fresh start.
+
+``` shell
+$ node setup/notes 4
+ #will add 4 notes to the notes collection in our mongo database
+
+$ node setup/notes --cleanup
+ #will cleanup the notes collection in our mongo database
 ```

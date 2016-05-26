@@ -33,3 +33,9 @@ app
   .get('/note/:nummer', fauxhal.notes.note)
   .put('/note/:nummer', fauxhal.notes.update)
   .delete('/note/:nummer', fauxhal.notes.delete);
+
+/////
+// generate routes list here
+/////
+
+require('./routes/generate.js')(app._router.stack);

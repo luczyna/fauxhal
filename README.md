@@ -12,6 +12,8 @@ We're using [Mongo](https://docs.mongodb.com/manual/installation/?jmp=footer) to
 npm install
 ```
 
+Read up on [Express](http://expressjs.com/en/4x/api.html), the framework we're using to build our API with. Everything here is just simple Express.js, and can be enhanced and customised to your needs with the knowledge of Express.
+
 ## Using
 
 In terminal #1, start our server:
@@ -47,6 +49,16 @@ $ node setup/notes 4
 $ node setup/notes --cleanup
  #will cleanup the notes collection in our mongo database
 ```
+
+## See your endpoints
+
+Simliar to `rake routes` available in Rails, you can list out all routes available to you with:
+
+```
+node routes/list
+```
+
+This lists out the paths to the API you have available to call out to, plus their applicable methods. Please note that this list gets updated on server start. If you've created some endpoints and don't see them in this list, then try restarting your server.
 
 ## Generate an endpoint
 

@@ -32,7 +32,7 @@ function generateModel() {
     fs.writeFile(destination, thisIsFile, function(writeError) {
       if (writeError) throw writeError;
 
-      console.log('generated %s modal file', params.name);
+      console.log('generated %s model file', params.name);
       process.exit(0);
     });
   });

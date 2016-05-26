@@ -49,14 +49,31 @@ function generateServerString() {
     var addThis = data.replace(findWithThese.lowercase, params.lowercase);
     addThis = addThis.replace(findWithThese.plural.lowercase, params.plural.lowercase);
 
-    addThis = '\n' + addThis;
+    fs.readFile(destination, {encoding: 'utf-8'}, function(destinationReadError, destinationData) {
+      if (destinationReadError) throw destinationReadError;
 
-    fs.appendFile(destination, addThis, function(appendError) {
-      if (appendError) throw appenError;
+      // we add this back in, but things need to go before it
+      var routeGenerator = addServerRouteGenerator().join('\n');
+      var theThingsBefore = addThis + '\n' + routeGenerator;
+      var withEverything = destinationData.replace(routeGenerator, theThingsBefore);
 
-      isAllDone();
-    });
+      fs.writeFile(destination, withEverything, function(destinationWriteError) {
+        if (destinationWriteError) throw destinationWriteError;
+
+        isAllDone();
+      });
+    })
   });
+}
+
+function addServerRouteGenerator() {
+  return [
+    '/////',
+    '// generate routes list here',
+    '/////',
+    '',
+    'require(\'./routes/generate.js\')(app._router.stack);',
+  ];
 }
 
 function generateFauxhalUnderwear() {

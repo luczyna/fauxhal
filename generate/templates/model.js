@@ -1,5 +1,6 @@
 module.exports = function(data) {
   {{goodness}}
+  this._typeset = {{{typegoodness}}};
 
   if (data.date === undefined) {
     this.date = new Date();

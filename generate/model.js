@@ -18,6 +18,7 @@ function generateModel() {
     if (error) throw error;
 
     var allTheThings = '';
+    var allTheTypes = '';
 
     params.keys.forEach(function(key, index) {
       if (index !== 0) {
@@ -27,7 +28,24 @@ function generateModel() {
       allTheThings += 'this.' + key + ' = data.' + key + ';\n';
     });
 
-    var thisIsFile = data.replace(new RegExp('{{goodness}}', 'g'), allTheThings);
+    var typeKeysArray = Object.keys(params.types);
+    typeKeysArray.forEach(function(key, index) {
+      if (index === 0) {
+        allTheTypes += '\n';
+      }
+
+      allTheTypes += '    ';
+      allTheTypes += key + ': \'' + params.types[key] + '\'';
+
+      if (index + 1 === typeKeysArray.length) {
+        allTheTypes += '\n  ';
+      } else {
+        allTheTypes += ',\n';
+      }
+    });
+
+    var thisIsFile = data.replace('{{goodness}}', allTheThings);
+    thisIsFile = thisIsFile.replace('{{typegoodness}}', allTheTypes);
 
     fs.writeFile(destination, thisIsFile, function(writeError) {
       if (writeError) throw writeError;
@@ -58,12 +76,26 @@ function getArguments() {
 
     var whatToUse = {
       name: null,
-      keys: []
+      keys: [],
+      types: {}
     };
+    var findType = new RegExp(/:\w+$/);
 
     whatToUse.name = argumentsToUse[0].toLowerCase();
     for (var i = 1; i < argumentsToUse.length; i++) {
-      whatToUse.keys.push(argumentsToUse[i].toLowerCase());
+      var key, type;
+
+      if (argumentsToUse[i].indexOf(':') > -1) {
+        key = argumentsToUse[i].replace(findType, '').toLowerCase();
+        
+        // TODO perform type checking here, ex: was strong provided instead of string?
+        type = argumentsToUse[i].replace(key + ':', '').toLowerCase();
+        whatToUse.types[key] = type;
+      } else {
+        key = argumentsToUse[i].toLowerCase();
+      }
+
+      whatToUse.keys.push(key);
     }
 
     argumentsToUse = whatToUse;

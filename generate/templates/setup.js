@@ -83,7 +83,7 @@ function makeFakeData(howMany) {
       /* can use faker
        * https://www.npmjs.com/package/faker
        */
-    }
+    };
 
     data.push(new {{uppercase}}(iteration));
   }

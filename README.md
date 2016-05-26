@@ -88,6 +88,14 @@ $ node generate/model song title artist length album
 
 This creates a `./models/song.js` file for you, which would be referenced in the restful endpoint file you may generate, as well as the following setup file you can also generate.
 
+If you'd like to add type restriction to your information, then you can add that to the generate command:
+
+``` shell
+$ node generate/model song title:string length:number fav:boolean
+```
+
+This will create a map to check your models keys against in the generated model file. If you'd like to further your faux API's checking of data getting sent to it, [read more about some setup](./docs/type-checking.md)!
+
 ### Generate the setup file for that endpoint
 
 Just like you can setup some fake data for yourself for the notes resource, there is a way to quickly generate a start setup file for your endpoints, too.

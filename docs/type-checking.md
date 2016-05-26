@@ -108,6 +108,6 @@ function updateSong(request, response) {
 
   ...
 }
-
-Passing the `false` value as the second parameter to the `creatingData` method will allow fields to be missing from the request. If you have an API that calls for the entire object to be sent when making updates to it, then this is less of a worry for you. 
 ```
+
+Passing the `false` value as the second parameter to the `creatingData` method will allow fields to be missing from the request. If you have an API that calls for the entire object to be sent when making updates to it, then this is less of a worry for you.
